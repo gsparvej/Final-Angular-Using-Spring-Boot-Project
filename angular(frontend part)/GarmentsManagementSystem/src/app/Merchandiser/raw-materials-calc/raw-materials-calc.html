@@ -1,0 +1,101 @@
+<form [formGroup]="formRawMaterials" class="container py-4">
+
+  <!-- Style Dropdown -->
+  <div class="mb-4">
+    <label class="form-label fw-semibold">Select Style</label>
+    <select class="form-select shadow-sm" formControlName="selectedStyle" (change)="onStyleChange()">
+      <option value="">-- Select Style --</option>
+      <option *ngFor="let s of order" [value]="s.bomStyle?.styleCode">
+        {{ s.bomStyle?.styleCode }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Order Fields (Short & Full Sleeve) -->
+  <div formGroupName="order" class="border rounded p-3 mb-4 bg-white shadow-sm">
+    <h4 class="text-primary text-center mb-3">Short Sleeve Shirt</h4>
+    <div class="row g-3 mb-4">
+      <div class="col-md-3">
+        <label class="form-label">Small</label>
+        <input class="form-control" formControlName="shortSmallSize" readonly />
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Medium</label>
+        <input class="form-control" formControlName="shortMediumSize" readonly />
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Large</label>
+        <input class="form-control" formControlName="shortLargeSize" readonly />
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">XL</label>
+        <input class="form-control" formControlName="shortXLSize" readonly />
+      </div>
+    </div>
+
+    <h4 class="text-primary text-center mb-3">Full Sleeve Shirt</h4>
+    <div class="row g-3">
+      <div class="col-md-3">
+        <label class="form-label">Small</label>
+        <input class="form-control" formControlName="fullSmallSize" readonly />
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Medium</label>
+        <input class="form-control" formControlName="fullMediumSize" readonly />
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Large</label>
+        <input class="form-control" formControlName="fullLargeSize" readonly />
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">XL</label>
+        <input class="form-control" formControlName="fullXLSize" readonly />
+      </div>
+    </div>
+  </div>
+
+  <!-- UOM Rows -->
+  <div formArrayName="uoms" class="border rounded p-3 mb-4 bg-white shadow-sm">
+    <h4 class="text-center text-success mb-3">Raw Materials</h4>
+
+    <div *ngFor="let row of uomsFormArray.controls; let i = index" [formGroupName]="i" class="row g-3 mb-3 border-bottom pb-3">
+      <div class="col-md-3">
+        <label class="form-label">Product Name {{ i + 1 }}</label>
+        <select class="form-select" formControlName="id">
+          <option value="">-- Select --</option>
+          <option *ngFor="let o of uom" [value]="o.id">{{ o.productName }}</option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <label class="form-label">Product Size</label>
+        <input class="form-control" formControlName="size" readonly />
+      </div>
+
+      <div class="col-md-2">
+        <label class="form-label">Type</label>
+        <input class="form-control" formControlName="type" readonly />
+      </div>
+
+      <div class="col-md-2">
+        <label class="form-label">Base Fabric</label>
+        <input class="form-control" formControlName="baseFabric" readonly />
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">Calculated Fabric</label>
+        <input class="form-control" formControlName="calculatedFabric" readonly />
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Fabric & Submit -->
+  <div class="text-end mt-4">
+    <h5 class="fw-bold text-dark">Total Fabric Required: 
+      <span class="text-primary">{{ totalCalculatedFabric | number:'1.2-2' }}</span>
+    </h5>
+    <button class="btn btn-lg btn-primary mt-3 shadow-sm" type="button" (click)="submitFabricData()">
+      Save Fabric Data
+    </button>
+  </div>
+</form>

@@ -1,0 +1,148 @@
+<div class="cutting-plan-form-container">
+  <h2>Add Cutting Plan</h2>
+
+  <form [formGroup]="cuttingForm" (ngSubmit)="addCuttingPlan()">
+
+    <!-- Marker Info -->
+    <fieldset>
+      <legend>Marker Details</legend>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="markerNo">Marker Number</label>
+          <input id="markerNo" type="text" formControlName="markerNo" />
+        </div>
+
+        <div class="form-group">
+          <label for="cuttingDate">Cutting Date</label>
+          <input id="cuttingDate" type="date" formControlName="cuttingDate" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fabricWidth">Fabric Width</label>
+          <input id="fabricWidth" type="number" formControlName="fabricWidth" />
+        </div>
+
+        <div class="form-group">
+          <label for="layCount">Lay Count</label>
+          <input id="layCount" type="number" formControlName="layCount" />
+        </div>
+
+        <div class="form-group">
+          <label for="fabricUsed">Fabric Used</label>
+          <input id="fabricUsed" type="number" formControlName="fabricUsed" readonly />
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Production Count -->
+    <fieldset>
+      <legend>Production Count</legend>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="plannedPcs">Planned Pieces</label>
+          <input id="plannedPcs" type="number" formControlName="plannedPcs" />
+        </div>
+
+        <div class="form-group">
+          <label for="actualPcs">Actual Pieces</label>
+          <input id="actualPcs" type="number" formControlName="actualPcs" />
+        </div>
+
+        <div class="form-group">
+          <label for="markerEfficiency">Marker Efficiency (%)</label>
+          <input id="markerEfficiency" type="number" formControlName="markerEfficiency" readonly />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="markerOutput">Marker Output (pcs per marker)</label>
+          <input id="markerOutput" type="number" formControlName="markerOutput" />
+        </div>
+
+        <div class="form-group">
+          <label for="markerCount">Marker Count</label>
+          <input id="markerCount" type="number" formControlName="markerCount" readonly />
+        </div>
+
+        <div class="form-group">
+          <label for="fabricLength">Fabric Length (meter)</label>
+          <input id="fabricLength" type="number" formControlName="fabricLength" readonly />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select id="status" formControlName="status">
+            <option value="">-- Select Status --</option>
+            <option value="Planned">Planned</option>
+            <option value="Running">Running</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <select id="description" formControlName="description">
+            <option value="">-- Select Description --</option>
+            <option value="Short Sleeve Shirt">Short Sleeve Shirt</option>
+            <option value="Full Sleeve Shirt">Full Sleeve Shirt</option>
+          </select>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Production Info -->
+    <fieldset>
+      <legend>Production Info</legend>
+
+      <div class="form-row">
+        <div class="form-group" formGroupName="uom">
+          <label for="size">Size</label>
+          <select id="size" formControlName="size">
+            <option value="">-- Select Size --</option>
+            <option *ngFor="let u of uomList" [value]="u.size">{{ u.size }}</option>
+          </select>
+        </div>
+
+        <div class="form-group" formGroupName="uom">
+          <label for="baseFabric">Base Fabric</label>
+          <input id="baseFabric" type="number" formControlName="baseFabric" readonly />
+        </div>
+
+        <div class="form-group" formGroupName="productionOrder">
+          <label for="productionOrder">Production Order</label>
+          <select formControlName="id">
+            <option value="">-- Select Production Order --</option>
+            <option *ngFor="let p of productionOrders" [value]="p.id">{{ p.id }}</option>
+          </select>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Additional Info -->
+    <fieldset>
+      <legend>Additional Info</legend>
+
+      <div class="form-group">
+        <label for="remarks">Remarks</label>
+        <textarea id="remarks" formControlName="remarks" rows="3"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="createdBy">Created By</label>
+        <input id="createdBy" type="text" formControlName="createdBy" />
+      </div>
+    </fieldset>
+
+    <!-- Submit -->
+    <div class="form-actions">
+      <button type="submit" [disabled]="cuttingForm.invalid">➕ Submit Cutting Plan</button>
+    </div>
+  </form>
+</div>

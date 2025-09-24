@@ -1,0 +1,43 @@
+<div class="profile-container" *ngIf="!loading; else loadingTemplate">
+
+  <h2 class="profile-title">🎨 Production Manager Profile</h2>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="profile" class="profile-card">
+
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="profile-photo">
+        <ng-container *ngIf="profile.photo; else noPhoto">
+          <img [src]="imageUrl + profile.photo" alt="Production Manager Photo" />
+        </ng-container>
+        <ng-template #noPhoto>
+          <div class="placeholder-photo">No Photo</div>
+        </ng-template>
+      </div>
+
+      <div class="profile-basic-info">
+        <h3>{{ profile.name }}</h3>
+        <p>{{ profile.email }}</p>
+      </div>
+    </div>
+
+    <!-- Profile Details -->
+    <div class="profile-details">
+      <div class="detail-row"><span>📞 Phone:</span> {{ profile.phone }}</div>
+      <div class="detail-row"><span>👤 Gender:</span> {{ profile.gender }}</div>
+      <div class="detail-row"><span>🎂 Date of Birth:</span> {{ profile.dateOfBirth | date: 'longDate' }}</div>
+      <div class="detail-row"><span>🏠 Address:</span> {{ profile.address }}</div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Loading Template -->
+<ng-template #loadingTemplate>
+  <div class="loading">🌈 Loading profile...</div>
+</ng-template>
